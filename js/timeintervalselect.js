@@ -35,8 +35,6 @@ var alertDiv = document.getElementById("alertDiv");
 var startMarker = document.getElementById("startMarker");
 var stopMarker = document.getElementById("stopMarker");
 var btnSaveSlot = document.getElementById("saveSlot");
-var operator = document.getElementById("operator");
-var scheduleDay = document.getElementById("scheduleDay");
 var totalTime = document.getElementById("totalTime");
 
 var infoString = "Hacer click en los intervalos libres los selecciona para reservar.</br>" +
