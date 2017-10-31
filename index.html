@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Time Interval Select</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-xs-8 col-centered text-center">
+            <h1>Seleccionador de Intervalos de Tiempo</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3 col-xs-offset-3 text-center">
+            <label>Inicio del Slot</label>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-info" id="startTimeMinus"><span class="glyphicon glyphicon-minus"></span></button>
+                </span>
+                <input class="form-control text-center" type="text" name ="starttime" value = "10:00" id="startTime"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-info" id="startTimePlus"><span class="glyphicon glyphicon-plus"></span></button>
+                </span>
+            </div>
+        </div>
+        <div class="col-xs-3 text-center">
+            <label>Fin del Slot</label>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-info" id="stopTimeMinus"><span class="glyphicon glyphicon-minus"></span></button>
+                </span>
+                <input class="form-control text-center" type="text" name ="starttime" value = "15:00" id="stopTime"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-info" id="stopTimePlus"><span class="glyphicon glyphicon-plus"></span></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-xs-4 col-centered text-center">
+                <button class="btn btn-info" id="saveSlot"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;Agregar</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-10 col-centered">
+            <div id="startMarker" class="time-control-marker"><span class="glyphicon glyphicon-chevron-down"></span></div>
+            <div id="stopMarker" class="time-control-marker"><span class="glyphicon glyphicon-chevron-down"></span></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-10 col-centered">
+            <div id="scheduleGraph"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-10 col-centered">
+            <table class="time-table">
+                <tr>
+                    <td class="time-table-row">00:00</td>
+                    <td class="time-table-row">02:00</td>
+                    <td class="time-table-row">04:00</td>
+                    <td class="time-table-row">06:00</td>
+                    <td class="time-table-row">08:00</td>
+                    <td class="time-table-row">10:00</td>
+                    <td class="time-table-row">12:00</td>
+                    <td class="time-table-row">14:00</td>
+                    <td class="time-table-row">16:00</td>
+                    <td class="time-table-row">18:00</td>
+                    <td class="time-table-row">20:00</td>
+                    <td class="time-table-row">22:00</td>
+                    <td class="time-table-row">24:00</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-xs-3 col-xs-offset-1">
+            <table class="schedule-reference">
+                <tr>
+                    <td width="20%" class="schedule-free-reference"></td>
+                    <th>&nbsp; Libre</th>
+                </tr>
+                <tr>
+                    <td width="20%" class="schedule-booked-reference"></td>
+                    <th>&nbsp; Reservada</th>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-xs-4" id="alertDiv"></div>
+    </div>
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/timeintervalselect.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+body {
+  	background-color: #eafaff;
+  	padding-top: 70px;
+}
+
+h1, h2, h3, h4, label {
+  	color: #31708f;
+}
+
+.table tr td {
+	border-color: #004413 !important;
+	border-bottom: 1px solid;
+	border-top: 1px solid;
+}
+
+.table tr th {
+	border-color: #004413 !important;
+	border-bottom: 1px solid;
+	border-top: 1px solid;
+}
+
+.panel-agro {
+	  background-color: #c5e2cc !important;
+	  border-color: #74a581 !important;
+	  color: #004413 !important;
+}
+
+.img-responsive {
+	width: 100%;
+}
+
+.v-centered {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.max-width {
+	width: 99%;
+}
+
+.well-agro {
+	  background-color: #c5e2cc !important;
+	  border-color: #74a581 !important;
+	  color: #004413 !important;
+}
+
+.panel-agro-heading {
+	  background-color: #004413 !important;
+	  border-color: #74a581 !important;
+	  color: #c5e2cc !important;
+}
+
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.schedule-taken{
+	background-color: #b00000;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid #004413;
+    display: inline-block;
+    font-size: 10px;
+}
+
+.schedule-taken-name {
+    position: relative;
+    float: left;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.schedule-taken-reference{
+    background-color: #b00000;
+    border: 1px solid #004413;
+}
+
+.schedule-booked{
+	background-color: #00b000;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid #004413;
+    display: inline-block;
+}
+
+.schedule-booked-reference{
+    background-color: #00b000;
+    border: 1px solid #004413;
+}
+
+.schedule-free{
+	background-color: #0091d0;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid #004413;
+    display: inline-block;
+}
+
+.schedule-free-reference{
+    background-color: #0091d0;
+    border: 1px solid #004413;
+}
+
+.time-table {
+    width : 100%;
+}
+
+.time-table-row {
+    width : 8.33%;
+    text-align: left;
+}
+
+.time-control-marker{
+    display: inline-block;
+    text-align: right;
+}
+
+.marker-taken {
+    color: #CCCC00;
+}
+
+.time-control-error {
+    background-color: rgba(255, 255, 0, 0.5);
+}
+
+.alert-div {
+    height: 110px;
+}
+
+.loader {
+    margin: auto;
+    border: 16px solid #74a581;
+    border-top: 16px solid #004413;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+}
+
+.alert-loader {
+    height: 180px;
+    background-color: #c5e2cc;
+    border-color: #004413;
+    color: #004413;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
