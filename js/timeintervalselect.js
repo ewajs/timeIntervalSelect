@@ -13,7 +13,7 @@
 
 // Globals
 
-var TIMEOFFSET = 30;
+var TIMEOFFSET = 15;
 var SCHEDULEDIVHEIGHT = "50px";
 var MINUTESPERDAY = 1440;
 var SCHEDULE;
@@ -37,11 +37,12 @@ var stopMarker = document.getElementById("stopMarker");
 var btnSaveSlot = document.getElementById("saveSlot");
 var operator = document.getElementById("operator");
 var scheduleDay = document.getElementById("scheduleDay");
+var totalTime = document.getElementById("totalTime");
 
 var infoString = "Hacer click en los intervalos libres los selecciona para reservar.</br>" +
     "Hacer click en los agregados los elimina.</br>" +
     "Los controles se volverán amarillos si el intervalo es inválido.</br>";
-var warningString = "Intervalo actual se solapa con otros reservados u ocupados.";
+var warningString = "Intervalo actual se solapa con otros ya ingresados.";
 
 setScheduleContainer(document.getElementById("scheduleGraph"));
 bindTimeControl(lbtnPlus, lbtnMinus, ltc, ubtnPlus, ubtnMinus, utc);
@@ -50,6 +51,7 @@ bindTimeControl(lbtnPlus, lbtnMinus, ltc, ubtnPlus, ubtnMinus, utc);
 document.getElementById("saveSlot").addEventListener("click", updateSchedule);
 alertUser("info", infoString,alertDiv);
 drawSchedule();
+$('[data-toggle="tooltip"]').tooltip({container: 'body'});
 
 
 
@@ -285,21 +287,9 @@ function removeSlot(id) {
         if(scheduleData[i].SlotID != id)
             newScheduleData.push(scheduleData[i]);
     }
-
     scheduleData = newScheduleData;
 }
 
-function updateSchedule() {
-    var newSlot = {
-        SlotStart: timeToInt(ltc.value),
-        SlotStop: timeToInt(utc.value),
-        SlotID: slotIDCounter
-    }
-    slotIDCounter++;
-    scheduleData.push(newSlot);
-    scheduleData.sort(compareSlot);
-    drawSchedule();
-}
 
 function compareSlot(a,b) {
   if (a.SlotStart < b.SlotStart)
@@ -309,10 +299,49 @@ function compareSlot(a,b) {
   return 0;
 }
 
+function joinAdjacentSlots() {
+    var joinedSlot = -1; // initial invalid ID
+    for (var i = 0; i < scheduleData.length - 1; i++) {
+        if(scheduleData[i].SlotStop == scheduleData[i+1].SlotStart) {
+            scheduleData[i].SlotStop = scheduleData[i+1].SlotStop; // enlarge first slot
+            joinedSlot = scheduleData[i + 1].SlotID; // mark the now invalid slot for deletion
+            //console.log(scheduleData);
+            //console.log("Found Adjacent Slots!");
+            break; // escape the for loop
+        }
+    }
+    removeSlot(joinedSlot);
+    //console.log(scheduleData);
+}
+
+function updateSchedule() {
+    updateMarkers();
+    if(!overlap) {
+        var newSlot = {
+            SlotStart: timeToInt(ltc.value),
+            SlotStop: timeToInt(utc.value),
+            SlotID: slotIDCounter
+        }
+        slotIDCounter++;
+        scheduleData.push(newSlot);
+        scheduleData.sort(compareSlot);
+        joinAdjacentSlots();
+        drawSchedule();
+        $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    }
+}
+
+function computeTotalTime() {
+    var time = 0;
+    for(var i = 0; i < scheduleData.length; i++) {
+        time += scheduleData[i].SlotStop - scheduleData[i].SlotStart;
+    }
+    totalTime.innerText = intToTime(time);
+}
 
 function drawSchedule() {
     SCHEDULE.innerHTML = ""; // reset the schedule div
-    console.log(scheduleData);
+    //console.log(scheduleData);
     var emptySlot = {
         SlotStart: 0,
         SlotStop: MINUTESPERDAY, // initially, full day.
@@ -325,15 +354,15 @@ function drawSchedule() {
         for(var i = 0; i < scheduleData.length; i++) {
             var thisStart = scheduleData[i].SlotStart;
             var thisStop = scheduleData[i].SlotStop;
-            console.log("thisStart = " + thisStart);
-            console.log("lastStop = " + lastStop);
+            //console.log("thisStart = " + thisStart);
+            //console.log("lastStop = " + lastStop);
             if (parseInt(thisStart,10) > parseInt(lastStop,10)) { // if there's free time in the middle
                 emptySlot.SlotStart = lastStop;
                 emptySlot.SlotStop = thisStart;
-                console.log("Drawing empty div at " + lastStop + " to " + thisStart);
+            //    console.log("Drawing empty div at " + lastStop + " to " + thisStart);
                 addScheduleDiv(emptySlot);
             }
-            console.log("Drawing occupied div at " + scheduleData[i].SlotStart + " to " + scheduleData[i].SlotStop);
+            //console.log("Drawing occupied div at " + scheduleData[i].SlotStart + " to " + scheduleData[i].SlotStop);
             addScheduleDiv(scheduleData[i]);
             lastStop = thisStop;
         }
@@ -344,6 +373,7 @@ function drawSchedule() {
         }
     }
     updateMarkers();
+    computeTotalTime();
 }
 
 function alertUser(alertType, alertText, alertDiv) {
